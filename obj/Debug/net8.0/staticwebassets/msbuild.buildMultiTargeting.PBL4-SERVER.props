@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\PBL4-SERVER.props" />
+</Project>
