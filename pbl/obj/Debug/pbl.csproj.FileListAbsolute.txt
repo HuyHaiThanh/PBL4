@@ -1,0 +1,14 @@
+D:\STUDYCODE\pbl\pbl\bin\Debug\pbl.exe.config
+D:\STUDYCODE\pbl\pbl\bin\Debug\pbl.exe
+D:\STUDYCODE\pbl\pbl\bin\Debug\pbl.pdb
+D:\STUDYCODE\pbl\pbl\bin\Debug\AltoControls.dll
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.csproj.AssemblyReference.cache
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.EnterURL.resources
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.Form1.resources
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.Properties.Resources.resources
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.setting.resources
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.csproj.GenerateResource.cache
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.csproj.CoreCompileInputs.cache
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.csproj.CopyComplete
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.exe
+D:\STUDYCODE\pbl\pbl\obj\Debug\pbl.pdb
