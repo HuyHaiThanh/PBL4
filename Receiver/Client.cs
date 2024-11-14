@@ -39,7 +39,7 @@ namespace Receiver
             //}
 
             Console.Write("Nhập tên file cần nhận: ");
-            string filename = "short_message.txt";    //= Console.ReadLine();
+            string filename = Console.ReadLine();
 
             //
             //Thêm sự kiện Ctrl-C để dừng nhận file
