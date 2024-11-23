@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace UdpFileTransfer
 {
@@ -35,6 +36,8 @@ namespace UdpFileTransfer
         public readonly string Hostname; // Tên máy chủ
         private bool _shutdownRequested = false; // Yêu cầu dừng
         private bool _running = false; // Đang chạy
+
+        private AutoResetEvent _networkMessageEvent = new AutoResetEvent(false); // Quản lý chờ đợi các sự kiện mạng
 
         // Dữ liệu
         private Dictionary<UInt32, Block> _blocksReceived = new Dictionary<UInt32, Block>(); // Các khối dữ liệu đã nhận
@@ -194,27 +197,38 @@ namespace UdpFileTransfer
                             // Lấy số thứ tự khối
                             UInt32 id = _blockRequestQueue.Dequeue();
 
-                            // Tạo yêu cầu khối
-                            RequestBlockPacket REQB = new RequestBlockPacket();
-                            REQB.Number = id;
+                            // Sử dụng Task để gửi yêu cầu khối
+                            Task.Run(() =>
+                            {
+                                // Tạo yêu cầu khối
+                                RequestBlockPacket REQB = new RequestBlockPacket();
+                                REQB.Number = id;
 
-                            // Gửi yêu cầu khối
-                            buffer = REQB.GetBytes();
-                            _client.Send(buffer, buffer.Length);
+                                // Gửi yêu cầu khối
+                                buffer = REQB.GetBytes();
+                                _client.Send(buffer, buffer.Length);
 
-                            Console.WriteLine("Gửi yêu cầu khối #{0}", id);
+                                Console.WriteLine("Gửi yêu cầu khối #{0}", id);
+                            });
                         }
 
                         // Kiểm tra khối dữ liệu đã nhận
                         bool isSend = (nm == null) ? false : (nm.Packet.IsSend);
                         if (isSend)
                         {
-                            // Lấy khối dữ liệu từ gói tin
-                            SendPacket SEND = new SendPacket(nm.Packet); // Gói tin SEND
-                            Block block = SEND.Block; // Khối dữ liệu
-                            _blocksReceived.Add(block.Number, block);   // Thêm vào danh sách khối dữ liệu đã nhận
+                            // Sử dụng Task để xử lý khối dữ liệu nhận được
+                            Task.Run(() =>
+                            {
+                                // Lấy khối dữ liệu từ gói tin
+                                SendPacket SEND = new SendPacket(nm.Packet); // Gói tin SEND
+                                Block block = SEND.Block; // Khối dữ liệu
+                                lock (_blocksReceived)
+                                {
+                                    _blocksReceived.Add(block.Number, block); // Thêm vào danh sách khối dữ liệu đã nhận
+                                }
 
-                            Console.WriteLine("Nhận khối #{0} [{1} byte]", block.Number, block.Data.Length);
+                                Console.WriteLine("Nhận khối #{0} [{1} byte]", block.Number, block.Data.Length);
+                            });
                         }
 
                         // Kiểm tra xem đã nhận đủ khối chưa
@@ -262,7 +276,7 @@ namespace UdpFileTransfer
 
                 }
 
-                Thread.Sleep(1);
+                _networkMessageEvent.WaitOne(1); // Chờ tối đa 1ms
 
                 // Kiểm tra yêu cầu dừng
                 _running &= !_shutdownRequested;
@@ -297,9 +311,9 @@ namespace UdpFileTransfer
         // Kiểm tra thông điệp mạng
         private void _checkForNetworkMessages()
         {
-            if (!_running)
-                return;
-
+            //if (!_running)
+            //    return;
+              
             // Kiểm tra xem có thông điệp mạng nào không
             int bytesAvailable = _client.Available; // Số byte có sẵn
             if (bytesAvailable >= 4)
@@ -314,6 +328,12 @@ namespace UdpFileTransfer
                 nm.Sender = ep;
                 nm.Packet = p;
                 _packetQueue.Enqueue(nm);
+            }
+
+            // Đặt sự kiện khi có thông điệp mạng
+            if (_packetQueue.Count > 0)
+            {
+                _networkMessageEvent.Set();
             }
         }
 
@@ -367,6 +387,46 @@ namespace UdpFileTransfer
             }
 
             return good;
+        }
+
+        // Nhận danh sách file
+        public List<FileDetail> GetList()
+        {
+            List<FileDetail> files = new List<FileDetail>();
+
+            // Gửi yêu cầu danh sách file
+            Packet REQL = new Packet(Packet.RequestList);
+            byte[] buffer = REQL.GetBytes();
+            _client.Send(buffer, buffer.Length);
+            Console.WriteLine("Yêu cầu danh sách file...");
+
+            NetworkMessage nm = null;
+
+            while (true)
+            {
+                // Nhận danh sách file
+                _checkForNetworkMessages();
+                if (_packetQueue.Count > 0)
+                {
+                    nm = _packetQueue.Dequeue();
+                    break;
+                }
+            }
+
+            // Kiểm tra danh sách file
+            bool isListFile = (nm == null) ? false : (nm.Packet.IsListFile);
+            if (isListFile)
+            {
+                Console.WriteLine("Nhận danh sách file...");
+                FileListPacket LIST = new FileListPacket(nm.Packet);
+                files = LIST.FileList;
+            }
+            else
+            {
+                Console.WriteLine("Không nhận được danh sách file.");
+            }
+
+            return files;
         }
 
         // Ping server

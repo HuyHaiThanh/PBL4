@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using UdpFileTransfer;
 
@@ -38,9 +39,29 @@ namespace Receiver
             //    return;
             //}
 
+            // Lấy danh sách file từ server
+            List<FileDetail> files = fileReceiver.GetList();
+            // In ra danh sách file
+            Console.WriteLine("Danh sách file:");
+            if (files.Count == 0)
+            {
+                Console.WriteLine("Không có file nào.");
+            }
+            foreach (var file in files)
+            {
+                Console.WriteLine($"- {file.FileName} ({file.FileSize} bytes)");
+            }
+
+
+
             Console.Write("Nhập tên file cần nhận: ");
+<<<<<<< Updated upstream
             string filename = "short_message.txt";    //= Console.ReadLine();
 
+=======
+            string filename = Console.ReadLine();
+            
+>>>>>>> Stashed changes
             //
             //Thêm sự kiện Ctrl-C để dừng nhận file
             Console.CancelKeyPress += InterruptHandler;

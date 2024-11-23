@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Linq;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace UdpFileTransfer
 {
@@ -10,11 +13,17 @@ namespace UdpFileTransfer
         // Các loại gói tin (Static)
         #region Messge Types (Static)
 
+        // Danh sách file
+        public static UInt32 ListFile = BitConverter.ToUInt32(Encoding.ASCII.GetBytes("LIST"), 0);
+
         // Xác nhận dữ liệu gửi thành công
         public static UInt32 Ack = BitConverter.ToUInt32(Encoding.ASCII.GetBytes("ACK "), 0);
 
         // Thoát, kết thúc truyền file
         public static UInt32 Bye = BitConverter.ToUInt32(Encoding.ASCII.GetBytes("BYE "), 0);
+
+        // Yêu cầu danh sách file
+        public static UInt32 RequestList = BitConverter.ToUInt32(Encoding.ASCII.GetBytes("REQL"), 0);
 
         // Yêu cầu file (cần ACK)
         public static UInt32 RequestFile = BitConverter.ToUInt32(Encoding.ASCII.GetBytes("REQF"), 0);
@@ -39,13 +48,15 @@ namespace UdpFileTransfer
                 
         #region Handy Properties
         // Kiểm tra loại gói tin
+        public bool IsListFile { get { return PacketType == ListFile; } }
         public bool IsAck { get { return PacketType == Ack; } }
         public bool IsBye { get { return PacketType == Bye; } }
+        public bool IsRequestList { get { return PacketType == RequestList; } }
         public bool IsRequestFile { get { return PacketType == RequestFile; } }
         public bool IsRequestBlock { get { return PacketType == RequestBlock; } }
         public bool IsInfo { get { return PacketType == Info; } }
         public bool IsSend { get { return PacketType == Send; } }
-        public bool IsUnknown { get { return !(IsAck || IsBye || IsRequestFile || IsRequestBlock || IsInfo || IsSend); } }
+        public bool IsUnknown { get { return !(IsAck || IsBye || IsRequestFile || IsRequestBlock || IsInfo || IsSend || IsRequestList || IsListFile); } }
 
         // Loại gói tin dưới dạng chuỗi
         public string MessageTypeString { get { return Encoding.UTF8.GetString(BitConverter.GetBytes(PacketType)); } }
@@ -94,7 +105,6 @@ namespace UdpFileTransfer
                 typeStr, payloadSize, payloadStr);
         }
 
-
         // Chuyển gói tin thành mảng byte
         public byte[] GetBytes()
         {
@@ -108,6 +118,63 @@ namespace UdpFileTransfer
     }
 
     #region Definite Packets
+    // REQL - Yêu cầu danh sách file
+    // Chứa thông điệp (mã hóa UTF-8) và dữ liệu (nếu có)
+    public class RequestListPacket : Packet
+    {
+        public string Message
+        {
+            get { return Encoding.UTF8.GetString(Payload); }
+            set { Payload = Encoding.UTF8.GetBytes(value); }
+        }
+
+        // Khởi tạo mặc định
+        public RequestListPacket(Packet p = null) :
+            base(RequestList)
+        {
+            if (p != null)
+                Payload = p.Payload;
+        }
+    }
+
+    // LIST - Danh sách file
+    // Chứa danh sách bao gồm tên file và dung lượng
+    [Serializable]
+    public class FileListPacket : Packet
+    {
+        public List<FileDetail> FileList
+        {
+            get
+            {
+                var memoryStream = new MemoryStream(Payload);
+                var formatter = new BinaryFormatter();
+                return (List<FileDetail>)formatter.Deserialize(memoryStream);
+            }
+            set
+            {
+                var memoryStream = new MemoryStream();
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(memoryStream, value);
+                Payload = memoryStream.ToArray();
+            }
+        }
+
+        // Khởi tạo mặc định
+        public FileListPacket(Packet p = null) :
+            base(ListFile)
+        {
+            if (p != null)
+                Payload = p.Payload;
+        }
+
+        // Hàm dựng
+        public FileListPacket(List<FileDetail> fileList) :
+            base(ListFile)
+        {
+            FileList = fileList;
+        }
+    }
+
     // ACK - Xác nhận
     // Chứa thông điệp (mã hóa UTF-8) và dữ liệu (nếu có)
     public class AckPacket : Packet
@@ -225,5 +292,6 @@ namespace UdpFileTransfer
                 Payload = p.Payload;
         }
     }
+
     #endregion // Định nghĩa các gói tin cụ thể
 }
