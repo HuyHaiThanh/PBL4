@@ -1,0 +1,13 @@
+F:\dotnet22.11\PBL4\TCPServer\bin\Debug\TCPServer.exe.config
+F:\dotnet22.11\PBL4\TCPServer\bin\Debug\TCPServer.exe
+F:\dotnet22.11\PBL4\TCPServer\bin\Debug\TCPServer.pdb
+F:\dotnet22.11\PBL4\TCPServer\bin\Debug\Core.exe
+F:\dotnet22.11\PBL4\TCPServer\bin\Debug\Newtonsoft.Json.dll
+F:\dotnet22.11\PBL4\TCPServer\bin\Debug\Core.pdb
+F:\dotnet22.11\PBL4\TCPServer\bin\Debug\Core.exe.config
+F:\dotnet22.11\PBL4\TCPServer\bin\Debug\Newtonsoft.Json.xml
+F:\dotnet22.11\PBL4\TCPServer\obj\Debug\TCPServer.csproj.AssemblyReference.cache
+F:\dotnet22.11\PBL4\TCPServer\obj\Debug\TCPServer.csproj.CoreCompileInputs.cache
+F:\dotnet22.11\PBL4\TCPServer\obj\Debug\TCPServer.csproj.CopyComplete
+F:\dotnet22.11\PBL4\TCPServer\obj\Debug\TCPServer.exe
+F:\dotnet22.11\PBL4\TCPServer\obj\Debug\TCPServer.pdb

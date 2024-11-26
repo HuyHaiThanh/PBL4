@@ -1,0 +1,10 @@
+F:\dotnet22.11\PBL4\Core\bin\Debug\Core.exe.config
+F:\dotnet22.11\PBL4\Core\bin\Debug\Core.exe
+F:\dotnet22.11\PBL4\Core\bin\Debug\Core.pdb
+F:\dotnet22.11\PBL4\Core\bin\Debug\Newtonsoft.Json.dll
+F:\dotnet22.11\PBL4\Core\bin\Debug\Newtonsoft.Json.xml
+F:\dotnet22.11\PBL4\Core\obj\Debug\Core.csproj.AssemblyReference.cache
+F:\dotnet22.11\PBL4\Core\obj\Debug\Core.csproj.CoreCompileInputs.cache
+F:\dotnet22.11\PBL4\Core\obj\Debug\Core.csproj.CopyComplete
+F:\dotnet22.11\PBL4\Core\obj\Debug\Core.exe
+F:\dotnet22.11\PBL4\Core\obj\Debug\Core.pdb

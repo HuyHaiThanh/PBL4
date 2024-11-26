@@ -1,0 +1,13 @@
+F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\HttpFileDownloader.exe.config
+F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\HttpFileDownloader.exe
+F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\HttpFileDownloader.pdb
+F:\dotnet22.11\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.csproj.AssemblyReference.cache
+F:\dotnet22.11\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.csproj.CoreCompileInputs.cache
+F:\dotnet22.11\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.exe
+F:\dotnet22.11\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.pdb
+F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\Core.exe
+F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\Newtonsoft.Json.dll
+F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\Core.pdb
+F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\Core.exe.config
+F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\Newtonsoft.Json.xml
+F:\dotnet22.11\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.csproj.CopyComplete

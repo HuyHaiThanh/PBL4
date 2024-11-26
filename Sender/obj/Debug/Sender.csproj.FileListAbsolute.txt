@@ -1,0 +1,15 @@
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\Sender.exe.config
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\Sender.exe
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\Sender.pdb
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\Core.exe
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\UdpFileTransfer.dll
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\UdpFileTransfer.pdb
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\Core.pdb
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\Core.exe.config
+C:\Users\Admin\Desktop\PBL4\Sender\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Admin\Desktop\PBL4\Sender\obj\Debug\Sender.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\PBL4\Sender\obj\Debug\Sender.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\PBL4\Sender\obj\Debug\Sender.csproj.CopyComplete
+C:\Users\Admin\Desktop\PBL4\Sender\obj\Debug\Sender.exe
+C:\Users\Admin\Desktop\PBL4\Sender\obj\Debug\Sender.pdb

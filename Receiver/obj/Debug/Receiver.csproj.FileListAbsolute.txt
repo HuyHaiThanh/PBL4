@@ -1,0 +1,15 @@
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\Receiver.exe.config
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\Receiver.exe
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\Receiver.pdb
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\UdpFileTransfer.dll
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\UdpFileTransfer.pdb
+C:\Users\Admin\Desktop\PBL4\Receiver\obj\Debug\Receiver.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\PBL4\Receiver\obj\Debug\Receiver.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\PBL4\Receiver\obj\Debug\Receiver.csproj.CopyComplete
+C:\Users\Admin\Desktop\PBL4\Receiver\obj\Debug\Receiver.exe
+C:\Users\Admin\Desktop\PBL4\Receiver\obj\Debug\Receiver.pdb
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\Core.exe
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\Core.pdb
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\Core.exe.config
+C:\Users\Admin\Desktop\PBL4\Receiver\bin\Debug\Newtonsoft.Json.xml
