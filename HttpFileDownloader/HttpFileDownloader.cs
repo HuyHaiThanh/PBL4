@@ -1,8 +1,10 @@
 ﻿using Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 namespace Http
@@ -131,7 +133,8 @@ namespace Http
                 throw new Exception("Download failed: " + ex.Message, ex);
             }
         }
-        int i;
+        private DateTime timeStartDown;
+        bool isFirstThread = true;
         private async Task DownloadPartAsync(string url, string tempFile, long start, long end)
         {
             try
@@ -140,6 +143,11 @@ namespace Http
                 using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
                 {
                     response.EnsureSuccessStatusCode();
+                    if (isFirstThread)
+                    {
+                        isFirstThread = false;
+                        timeStartDown = DateTime.Now;
+                    }
                     using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
                     fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true))
                     {
@@ -210,6 +218,7 @@ namespace Http
                         File.Delete(tempFile);
                     }
                 }
+                double downloadTime = (DateTime.Now - timeStartDown).TotalSeconds;
                 Observer.Instance.Broadcast(EventId.OnProcessDownloadCompleted, null);
             }
             catch (Exception ex)

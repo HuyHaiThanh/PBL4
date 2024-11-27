@@ -6,5 +6,7 @@
         OnProcessDownloadStart,
         OnProcessDownloadProgress,
         OnProcessDownloadCompleted,
+
+        OnGetLinkByHttp,
     }
 }

@@ -10,3 +10,15 @@ C:\Users\Admin\Desktop\PBL4\UdpFileTransfer\bin\Debug\Core.pdb
 C:\Users\Admin\Desktop\PBL4\UdpFileTransfer\bin\Debug\Core.exe.config
 C:\Users\Admin\Desktop\PBL4\UdpFileTransfer\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Admin\Desktop\PBL4\UdpFileTransfer\obj\Debug\UdpFileTransfer.csproj.CopyComplete
+F:\dotnet22.11\PBL4\UdpFileTransfer\bin\Debug\UdpFileTransfer.dll
+F:\dotnet22.11\PBL4\UdpFileTransfer\bin\Debug\UdpFileTransfer.pdb
+F:\dotnet22.11\PBL4\UdpFileTransfer\bin\Debug\Core.exe
+F:\dotnet22.11\PBL4\UdpFileTransfer\bin\Debug\Newtonsoft.Json.dll
+F:\dotnet22.11\PBL4\UdpFileTransfer\bin\Debug\Core.pdb
+F:\dotnet22.11\PBL4\UdpFileTransfer\bin\Debug\Core.exe.config
+F:\dotnet22.11\PBL4\UdpFileTransfer\bin\Debug\Newtonsoft.Json.xml
+F:\dotnet22.11\PBL4\UdpFileTransfer\obj\Debug\UdpFileTransfer.csproj.AssemblyReference.cache
+F:\dotnet22.11\PBL4\UdpFileTransfer\obj\Debug\UdpFileTransfer.csproj.CoreCompileInputs.cache
+F:\dotnet22.11\PBL4\UdpFileTransfer\obj\Debug\UdpFileTransfer.csproj.CopyComplete
+F:\dotnet22.11\PBL4\UdpFileTransfer\obj\Debug\UdpFileTransfer.dll
+F:\dotnet22.11\PBL4\UdpFileTransfer\obj\Debug\UdpFileTransfer.pdb

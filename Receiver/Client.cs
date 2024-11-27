@@ -1,6 +1,7 @@
 ﻿using Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UdpFileTransfer;
 
 namespace Receiver
@@ -13,6 +14,7 @@ namespace Receiver
         private string fileName;
         private int numThreads;
         public static UdpFileReceiver fileReceiver;
+        List<FileDetail> files;
         public Client(string ip, int port)
         {
             this.ip = ip;
@@ -24,6 +26,8 @@ namespace Receiver
             this.ip = ip;
             this.port = port;
             this.fileName = fileName;
+            files = GetFileList();
+            long fileSize = files.FirstOrDefault(f => f.fileName == fileName).totalBytes;
             this.filePath = filePath;
             this.numThreads = numThreads;
             fileReceiver = new UdpFileReceiver(ip, port);

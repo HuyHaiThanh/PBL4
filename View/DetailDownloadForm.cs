@@ -100,7 +100,7 @@ namespace View
                 FileDownLoadStatus status = (FileDownLoadStatus)obj;
                 if ((int)status == (int)FileDownLoadStatus.Connect)
                 {
-                    lbStatus.Text = "Tìm kiếm file";
+                    lbStatus.Text = "Get file infomation";
                 }
             });
 
@@ -131,3 +131,5 @@ namespace View
 //https://drive.google.com/uc?authuser=0&id=1Il7sUWuNpWOnnWCAjLjtTaViXVuRO6yD&export=download
 //https://drive.usercontent.google.com/u/0/uc?id=1No3sYXcIv4wZ2Jgj5vusiEdjUaBRng85&export=download
 //https://drive.usercontent.google.com/u/0/uc?id=12GI_BmNAhQm1vWKzRDs-Vqg2K7UQTEqg&export=download
+
+//https://drive.usercontent.google.com/download?id=1WVb5mnrxh-LjgXA4Z-mEBpWIWi09i60b&authuser=0&confirm=t&uuid=0bde2abf-171a-49ed-9864-25ca1a7efee6&at=AENtkXbvif4bpOOVtHVTPwxtSATi%3A1731933259364

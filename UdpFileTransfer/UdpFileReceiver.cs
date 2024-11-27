@@ -70,6 +70,7 @@ namespace UdpFileTransfer
         public void GetFile(string filename, string filePath, int numThreads)
         {
             Console.WriteLine("Yêu cầu file: {0}", filename);
+            long _fileSize = GetList().FirstOrDefault(m => m.fileName == filename).totalBytes;
             fileDetail = new FileDetail(filename, 0, numThreads);
             // Thay đổi trạng thái thành RequestingFile
             ReceiverState state = ReceiverState.RequestingFile;
@@ -233,7 +234,7 @@ namespace UdpFileTransfer
                                 }
 
 
-                            fileDetail.UpdateInfo(0, receiveBytes , 0, FileDownLoadStatus.Downloading);
+                            fileDetail.UpdateInfo((int)(receiveBytes * 100 / _fileSize), receiveBytes , 0, FileDownLoadStatus.Downloading);
                             Observer.Instance.Broadcast(EventId.OnProcessDownloadProgress, fileDetail);
                             Console.WriteLine("Nhận khối #{0} [{1} byte]", block.Number, block.Data.Length);
                         }

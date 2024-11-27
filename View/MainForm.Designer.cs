@@ -102,7 +102,7 @@
             this.btnStartDowloadHttp.Name = "btnStartDowloadHttp";
             this.btnStartDowloadHttp.Size = new System.Drawing.Size(75, 23);
             this.btnStartDowloadHttp.TabIndex = 30;
-            this.btnStartDowloadHttp.Text = "button1";
+            this.btnStartDowloadHttp.Text = "Download";
             this.btnStartDowloadHttp.UseVisualStyleBackColor = true;
             this.btnStartDowloadHttp.Click += new System.EventHandler(this.btnStartDowloadHttp_Click);
             // 

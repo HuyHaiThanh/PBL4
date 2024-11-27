@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "C# Download Manager Helper",
+  "description": "A helper extension to catch download links and send them to a C# application.",
+  "version": "1.0",
+  "permissions": ["declarativeNetRequest", "downloads", "scripting", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

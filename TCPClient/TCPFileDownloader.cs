@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Core;
@@ -109,6 +112,7 @@ namespace TCP
         }
         public async Task StartDownload()
         {
+
             Observer.Instance.Broadcast(EventId.OnProcessDownloadStart, FileDownLoadStatus.Connect);
             fileSize = await GetFileSizeAsync();
             if (fileSize == -1) return;
@@ -136,7 +140,8 @@ namespace TCP
         }
 
 
-
+        private DateTime timeStartDown;
+        bool isFirstThread = true;
         private async Task DownloadPartAsync(long start, long end, string tempFile)
         {
             using (TcpClient client = new TcpClient(ip, port))
@@ -144,6 +149,11 @@ namespace TCP
             using (StreamWriter writer = new StreamWriter(stream))
             using (FileStream fs = new FileStream(tempFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
             {
+                if (isFirstThread)
+                {
+                    isFirstThread = false;
+                    timeStartDown = DateTime.Now;
+                }
                 writer.WriteLine($"GET {fileName} {start} {end}");
                 await writer.FlushAsync();
                 byte[] buffer = new byte[8192];
@@ -204,6 +214,8 @@ namespace TCP
                     File.Delete(tempFile);
                 }
             }
+            double downloadTime = (DateTime.Now - timeStartDown).TotalSeconds;
+            
             Observer.Instance.Broadcast(EventId.OnProcessDownloadCompleted, null);
         }
 

@@ -1,11 +1,11 @@
 ﻿using Core;
+using Receiver;
 using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using TCP;
-using Http;
-using Receiver;
+using HttpFileDownloader;
 
 namespace View
 {
@@ -15,11 +15,29 @@ namespace View
         {
             InitializeComponent();
             Observer.Instance.Register(EventId.OnHasError, MainForm_OnHasError);
+            Observer.Instance.Register(EventId.OnGetLinkByHttp, OnGetLinkHttp);
+            ClaimURL claimURL = new ClaimURL();
+            claimURL.ClaimExtension();
         }
         public void MainForm_OnHasError(object obj)
         {
             string message = (string)obj;
             MessageBox.Show(message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public void OnGetLinkHttp(object obj)
+        {
+            MessageBox.Show("sda");
+            this.Invoke((MethodInvoker)delegate
+            {
+                string url = (string)obj;
+                SettingInfo settingInfo = Utilities.LoadFromJson();
+                Http.HttpFileDownloader downloader = new Http.HttpFileDownloader(url, settingInfo.pathSave, settingInfo.connectionLimit);
+                DetailDownloadForm detailForm = new DetailDownloadForm(downloader);
+                detailForm.ShowDialog();
+
+            });
+
+
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -58,7 +76,7 @@ namespace View
                 DetailDownloadForm detailForm = new DetailDownloadForm(downloader);
                 detailForm.ShowDialog();
             }
-            else if(comboBox1.SelectedIndex == 1)
+            else if (comboBox1.SelectedIndex == 1)
             {
                 Client downloader = new Client(serverIP, serverPort, fileName, filePath, numThreads);
                 DetailDownloadForm detailForm = new DetailDownloadForm(downloader);
@@ -69,7 +87,7 @@ namespace View
         }
         private void btnGetFile_Click(object sender, EventArgs e)
         {
-
+            
             SettingInfo settingInfo = Utilities.LoadFromJson();
             if (settingInfo == null || settingInfo.serverIP == null || settingInfo.serverPort == 0) return;
             if (comboBox1.SelectedIndex == 0)
@@ -85,7 +103,7 @@ namespace View
                     }).ToList();
                 }
             }
-            else if(comboBox1.SelectedIndex == 1)
+            else if (comboBox1.SelectedIndex == 1)
             {
                 Client downloader = new Client(settingInfo.serverIP, settingInfo.serverPort);
                 if (downloader.GetFileList() != null && downloader.GetFileList().Count != 0)
@@ -102,11 +120,22 @@ namespace View
 
         }
 
+
         private void btnStartDowloadHttp_Click(object sender, EventArgs e)
         {
             SettingInfo settingInfo = Utilities.LoadFromJson();
             string url = textBoxUrl.Text;
             if (String.IsNullOrEmpty(url)) return;
+            Uri uriResult;
+            bool result = Uri.TryCreate(url, UriKind.Absolute, out uriResult)
+                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+            if (!result)
+            {
+                MessageBox.Show("Please enter a valid url to start download!", "Invalid url", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             Http.HttpFileDownloader downloader = new Http.HttpFileDownloader(url, settingInfo.pathSave, settingInfo.connectionLimit);
             DetailDownloadForm detailForm = new DetailDownloadForm(downloader);
             detailForm.ShowDialog();
@@ -115,6 +144,7 @@ namespace View
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Observer.Instance.Unregister(EventId.OnHasError, MainForm_OnHasError);
+            Observer.Instance.Unregister(EventId.OnGetLinkByHttp, OnGetLinkHttp);
         }
     }
 }
