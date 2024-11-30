@@ -397,11 +397,10 @@ namespace UdpFileTransfer
                     Console.WriteLine("Nhận yêu cầu danh sách file từ {0}.", nm.Sender);
                     List<string> files = new List<string>(Directory.EnumerateFiles(FilesDirectory)); // Lấy danh sách file
                     List<FileDetail> fileList = files.Select(f => new FileDetail(Path.GetFileName(f), new FileInfo(f).Length)).ToList(); // Tạo danh sách file
+                    _transferableFiles = new HashSet<string>(files.Select(s => s.Substring(FilesDirectory.Length + 1)));
                     FileListPacket LIST = new FileListPacket(fileList); // Tạo gói tin chứa danh sách file
                     byte[] buffer = LIST.GetBytes(); // Chuyển gói tin thành mảng byte
                     _client.Send(buffer, buffer.Length, nm.Sender); // Gửi gói tin
-
-
 
                     Console.WriteLine("Gửi danh sách file cho {0}.", nm.Sender);
                     // Thử in ra danh sách file
