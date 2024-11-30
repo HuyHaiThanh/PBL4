@@ -46,7 +46,6 @@ namespace Sender
             Console.CancelKeyPress += InterruptHandler;
                 
             //// Bắt đầu truyền file
-            fileSender.Init(); // Lấy danh sách file
             fileSender.Run();  // Bắt đầu truyền file
                 
             Console.WriteLine("Press Ctrl-C to stop the sender.");

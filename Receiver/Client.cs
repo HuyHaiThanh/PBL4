@@ -55,13 +55,8 @@ namespace Receiver
 
 
             Console.Write("Nhập tên file cần nhận: ");
-<<<<<<< Updated upstream
-            string filename = "short_message.txt";    //= Console.ReadLine();
-
-=======
             string filename = Console.ReadLine();
             
->>>>>>> Stashed changes
             //
             //Thêm sự kiện Ctrl-C để dừng nhận file
             Console.CancelKeyPress += InterruptHandler;

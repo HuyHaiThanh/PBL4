@@ -76,42 +76,6 @@ namespace UdpFileTransfer
             }
         }
 
-        // Chuẩn bị trình gửi để truyền file
-        public void Init()
-        {
-            // Lấy danh sách file có thể gửi
-            List<string> files = new List<string>(Directory.EnumerateFiles(FilesDirectory));
-            _transferableFiles = new HashSet<string>(files.Select(s => s.Substring(FilesDirectory.Length + 1)));
-
-            // Kiểm tra xem có file nào để gửi không
-            if (_transferableFiles.Count != 0)
-            {
-                Running = true;
-
-                //// Tạo danh sách file và dung lượng
-                //List<FileDetail> fileList = files.Select(f => new FileDetail(Path.GetFileName(f), new FileInfo(f).Length)).ToList();
-                //
-                //// Tạo gói tin chứa danh sách file
-                //FileListPacket LIST = new FileListPacket(fileList);
-                //
-                //// Gửi gói tin
-                //byte[] buffer = LIST.Payload;
-                //IPEndPoint ep = new IPEndPoint(IPAddress.Any, 0);
-                //_client.Send(buffer, buffer.Length);
-                //
-                //// Xuất thông tin file ra màn hình
-                //Console.WriteLine("Thông tin file đã gửi cho client:");
-                //foreach (var file in fileList)
-                //{
-                //    Console.WriteLine("Tên file: {0}, Kích thước: {1} bytes", file.FileName, file.FileSize);
-                //}
-            }
-            else
-            {
-                Console.WriteLine("Không có file nào để gửi.");
-            }
-        }
-
         // Dừng trình gửi
         public void Shutdown()
         {
@@ -411,6 +375,7 @@ namespace UdpFileTransfer
                     Console.WriteLine("Nhận yêu cầu danh sách file từ {0}.", nm.Sender);
                     List<string> files = new List<string>(Directory.EnumerateFiles(FilesDirectory)); // Lấy danh sách file
                     List<FileDetail> fileList = files.Select(f => new FileDetail(Path.GetFileName(f), new FileInfo(f).Length)).ToList(); // Tạo danh sách file
+                    _transferableFiles = new HashSet<string>(files.Select(s => s.Substring(FilesDirectory.Length + 1)));
                     FileListPacket LIST = new FileListPacket(fileList); // Tạo gói tin chứa danh sách file
                     byte[] buffer = LIST.GetBytes(); // Chuyển gói tin thành mảng byte
                     _client.Send(buffer, buffer.Length, nm.Sender); // Gửi gói tin

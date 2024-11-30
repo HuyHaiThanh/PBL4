@@ -392,42 +392,50 @@ namespace UdpFileTransfer
         // Nhận danh sách file
         public List<FileDetail> GetList()
         {
+            bool OK = false; // Kiểm tra nhận file thành công hay chưa
             List<FileDetail> files = new List<FileDetail>();
+            const int timeout = 1000; // 1 giây
 
-            // Gửi yêu cầu danh sách file
-            Packet REQL = new Packet(Packet.RequestList);
-            byte[] buffer = REQL.GetBytes();
-            _client.Send(buffer, buffer.Length);
-            Console.WriteLine("Yêu cầu danh sách file...");
-
-            NetworkMessage nm = null;
-
-            while (true)
+            while (!OK)
             {
-                // Nhận danh sách file
-                _checkForNetworkMessages();
-                if (_packetQueue.Count > 0)
+                // Gửi yêu cầu danh sách file
+                Packet REQL = new Packet(Packet.RequestList);
+                byte[] buffer = REQL.GetBytes();
+                _client.Send(buffer, buffer.Length);
+                Console.WriteLine("Yêu cầu danh sách file...");
+
+                NetworkMessage nm = null;
+                Stopwatch stopwatch = Stopwatch.StartNew();
+
+                while (stopwatch.ElapsedMilliseconds < timeout)
                 {
-                    nm = _packetQueue.Dequeue();
-                    break;
+                    // Nhận danh sách file
+                    _checkForNetworkMessages();
+                    if (_packetQueue.Count > 0)
+                    {
+                        nm = _packetQueue.Dequeue();
+                        break;
+                    }
                 }
-            }
 
-            // Kiểm tra danh sách file
-            bool isListFile = (nm == null) ? false : (nm.Packet.IsListFile);
-            if (isListFile)
-            {
-                Console.WriteLine("Nhận danh sách file...");
-                FileListPacket LIST = new FileListPacket(nm.Packet);
-                files = LIST.FileList;
-            }
-            else
-            {
-                Console.WriteLine("Không nhận được danh sách file.");
+                // Kiểm tra danh sách file
+                bool isListFile = (nm == null) ? false : (nm.Packet.IsListFile);
+                if (isListFile)
+                {
+                    Console.WriteLine("Nhận danh sách file...");
+                    FileListPacket LIST = new FileListPacket(nm.Packet);
+                    files = LIST.FileList;
+                    OK = true;
+                }
+                else
+                {
+                    Console.WriteLine("Không nhận được danh sách file. Thử lại...");
+                }
             }
 
             return files;
         }
+
 
         // Ping server
         public bool Ping(string serverAddress, int port)
