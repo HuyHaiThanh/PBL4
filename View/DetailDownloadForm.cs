@@ -123,6 +123,16 @@ namespace View
 
         private void DetailDownloadForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+             if (tcpFileDownloader != null)
+             {
+                    tcpFileDownloader.Cancelled();
+             }
+             else if (httpDowloader != null)
+             {
+                    httpDowloader.Cancelled();
+             }
+
             UnRegisterEvent();
         }
     }

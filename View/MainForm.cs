@@ -26,7 +26,6 @@ namespace View
         }
         public void OnGetLinkHttp(object obj)
         {
-            MessageBox.Show("sda");
             this.Invoke((MethodInvoker)delegate
             {
                 string url = (string)obj;

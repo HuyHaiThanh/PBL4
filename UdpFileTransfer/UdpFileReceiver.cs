@@ -71,7 +71,7 @@ namespace UdpFileTransfer
         {
             Console.WriteLine("Yêu cầu file: {0}", filename);
             long _fileSize = GetList().FirstOrDefault(m => m.fileName == filename).totalBytes;
-            fileDetail = new FileDetail(filename, 0, numThreads);
+            fileDetail = new FileDetail(filename, _fileSize, numThreads);
             // Thay đổi trạng thái thành RequestingFile
             ReceiverState state = ReceiverState.RequestingFile;
 
@@ -97,6 +97,9 @@ namespace UdpFileTransfer
             _running = true;
             bool senderQuit = false;
             bool wasRunning = _running;
+
+            bool isFirstTime = true;
+            DateTime start = DateTime.Now;
 
             // Vòng lặp chính
             while (_running)
@@ -194,6 +197,12 @@ namespace UdpFileTransfer
 
                     // Truyền
                     case ReceiverState.Transfering:
+
+                        if (isFirstTime)
+                        {
+                            isFirstTime = false;
+                            start = DateTime.Now;
+                        }
                         // Kiểm tra hàng đợi yêu cầu
                         if (_blockRequestQueue.Count > 0)
                         {
@@ -256,7 +265,11 @@ namespace UdpFileTransfer
 
                         // Đủ khối thì chuyển sang trạng thái TransferSuccessful
                         if (_blocksReceived.Count == numBlocks)
+                        {
+                            double downTime = (DateTime.Now - start).TotalSeconds;
                             state = ReceiverState.TransferSuccessful;
+                        }
+
                         break;
 
                     // Truyền thành công

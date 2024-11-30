@@ -22,7 +22,7 @@ namespace Http
 
         private readonly string url;
         private readonly string outputFolder;
-        private readonly int numThreads;
+        private  int numThreads;
 
 
         public HttpFileDownloader(string url, string outputFolder, int numberOfParts)
@@ -98,11 +98,30 @@ namespace Http
                 throw new Exception("Error retrieving file name: " + ex.Message, ex);
             }
         }
+        public async Task<bool> CheckRangeSupportAsync(string url)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                // Tạo một request với header "Range"
+                var request = new HttpRequestMessage(HttpMethod.Get, url);
+                request.Headers.Add("Range", "bytes=0-1");
 
+                // Gửi request
+                HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+
+                // Kiểm tra mã trạng thái và header
+                if (response.StatusCode == System.Net.HttpStatusCode.PartialContent)
+                {
+                    return true; // Server hỗ trợ Range Requests
+                }
+                return false; // Không hỗ trợ
+            }
+        }
 
         public async Task StartDownload()
         {
             Observer.Instance.Broadcast(EventId.OnProcessDownloadStart, FileDownLoadStatus.Connect);
+            if(!await CheckRangeSupportAsync(url)) numThreads = 1;
             fileSize = await GetFileSizeAsync(url);
             string fileName = await GetFileName(url);
             string outputPath = Path.Combine(outputFolder, fileName);
