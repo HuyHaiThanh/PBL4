@@ -32,8 +32,6 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.btnGetFile = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBoxUrl = new System.Windows.Forms.TextBox();
-            this.btnStartDowloadHttp = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -62,7 +60,7 @@
             // btnStart
             // 
             this.btnStart.Location = new System.Drawing.Point(44, 40);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(2);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(56, 19);
             this.btnStart.TabIndex = 24;
@@ -73,7 +71,7 @@
             // btnGetFile
             // 
             this.btnGetFile.Location = new System.Drawing.Point(104, 40);
-            this.btnGetFile.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGetFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnGetFile.Name = "btnGetFile";
             this.btnGetFile.Size = new System.Drawing.Size(56, 19);
             this.btnGetFile.TabIndex = 27;
@@ -86,25 +84,10 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(44, 98);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.Size = new System.Drawing.Size(474, 217);
             this.dataGridView1.TabIndex = 28;
-            // 
-            // textBoxUrl
-            // 
-            this.textBoxUrl.Location = new System.Drawing.Point(44, 65);
-            this.textBoxUrl.Name = "textBoxUrl";
-            this.textBoxUrl.Size = new System.Drawing.Size(100, 20);
-            this.textBoxUrl.TabIndex = 29;
-            // 
-            // btnStartDowloadHttp
-            // 
-            this.btnStartDowloadHttp.Location = new System.Drawing.Point(165, 61);
-            this.btnStartDowloadHttp.Name = "btnStartDowloadHttp";
-            this.btnStartDowloadHttp.Size = new System.Drawing.Size(75, 23);
-            this.btnStartDowloadHttp.TabIndex = 30;
-            this.btnStartDowloadHttp.Text = "Download";
-            this.btnStartDowloadHttp.UseVisualStyleBackColor = true;
-            this.btnStartDowloadHttp.Click += new System.EventHandler(this.btnStartDowloadHttp_Click);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // comboBox1
             // 
@@ -124,20 +107,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(549, 366);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.btnStartDowloadHttp);
-            this.Controls.Add(this.textBoxUrl);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnGetFile);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.btnSettings);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainForm";
             this.Text = "Main";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -146,8 +126,6 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnGetFile;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBoxUrl;
-        private System.Windows.Forms.Button btnStartDowloadHttp;
         private System.Windows.Forms.ComboBox comboBox1;
     }
 }

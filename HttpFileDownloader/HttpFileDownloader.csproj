@@ -43,8 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HttpFileDownloader.cs" />
+    <Compile Include="HttpClientDownloader.cs" />
     <Compile Include="ClaimURL.cs" />
+    <Compile Include="InternetFileDownload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

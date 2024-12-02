@@ -247,7 +247,7 @@ namespace UdpFileTransfer
 
                 }
 
-            Thread.Sleep(10);
+            Thread.Sleep(1);
             }
 
             // Gửi thông điệp BYE khi gửi hết khối

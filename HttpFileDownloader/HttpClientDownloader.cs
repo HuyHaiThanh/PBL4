@@ -1,15 +1,13 @@
 ﻿using Core;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 namespace Http
 {
-    public class HttpFileDownloader : BaseDowloader
+    public class HttpClientDownloader : BaseDowloader
     {
         private readonly HttpClient client;
 
@@ -22,10 +20,10 @@ namespace Http
 
         private readonly string url;
         private readonly string outputFolder;
-        private  int numThreads;
+        private int numThreads;
 
 
-        public HttpFileDownloader(string url, string outputFolder, int numberOfParts)
+        public HttpClientDownloader(string url, string outputFolder, int numberOfParts)
         {
             client = new HttpClient();
 
@@ -38,11 +36,14 @@ namespace Http
         {
             try
             {
-                using (var request = new HttpRequestMessage(HttpMethod.Head, url))
+                var request = new HttpRequestMessage(HttpMethod.Head, url);
+                    request.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36");
                 using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
                 {
                     response.EnsureSuccessStatusCode();
-                    return response.Content.Headers.ContentLength ?? throw new InvalidOperationException("Cannot determine file size.");
+                    long size = response.Content.Headers.ContentLength ?? throw new InvalidOperationException("Cannot determine file size.");
+                    return response.Content.Headers.ContentLength 
+                        ?? throw new InvalidOperationException("Cannot determine file size.");
                 }
             }
             catch (HttpRequestException ex)
@@ -69,18 +70,18 @@ namespace Http
         public async Task<string> GetFileName(string url)
         {
             try
+            {
+                HttpResponseMessage response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, url));
+                response.EnsureSuccessStatusCode();
+
+                if (response.Content.Headers.ContentDisposition?.FileName != null)
                 {
-                    HttpResponseMessage response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, url));
-                    response.EnsureSuccessStatusCode();
+                    return response.Content.Headers.ContentDisposition.FileName.Trim('"');
+                }
 
-                    if (response.Content.Headers.ContentDisposition?.FileName != null)
-                    {
-                        return response.Content.Headers.ContentDisposition.FileName.Trim('"');
-                    }
-
-                    Uri uri = new Uri(url);
-                    return Path.GetFileName(uri.LocalPath) ?? "downloaded_file";
-             }
+                Uri uri = new Uri(url);
+                return Path.GetFileName(uri.LocalPath) ?? "downloaded_file";
+            }
             catch (HttpRequestException ex)
             {
                 // Lỗi liên quan đến HTTP (kết nối thất bại, server trả lỗi, v.v.)
@@ -121,12 +122,12 @@ namespace Http
         public async Task StartDownload()
         {
             Observer.Instance.Broadcast(EventId.OnProcessDownloadStart, FileDownLoadStatus.Connect);
-            if(!await CheckRangeSupportAsync(url)) numThreads = 1;
+            if (!await CheckRangeSupportAsync(url)) numThreads = 1;
             fileSize = await GetFileSizeAsync(url);
             string fileName = await GetFileName(url);
             string outputPath = Path.Combine(outputFolder, fileName);
 
-            currentFile = new FileDetail(fileName, fileSize / (1024 * 1024), numThreads);     
+            currentFile = new FileDetail(fileName, fileSize / (1024 * 1024), numThreads);
             long partSize = fileSize / numThreads;
 
             var tasks = new List<Task>();
@@ -198,24 +199,24 @@ namespace Http
                             double downloadSpeed = totalBytesDownloaded / elapsedTime.TotalSeconds;
 
                             if ((DateTime.Now - lastUpdate).TotalMilliseconds >= 500)
-                                {
-                                    lastUpdate = DateTime.Now;
+                            {
+                                lastUpdate = DateTime.Now;
 
-                                    long downloadedMegaBytes = totalBytesDownloaded / (1024 * 1024);
-                                    double downloadSpeedMegaBytesPerSeconds = downloadSpeed / (1024 * 1024);
+                                long downloadedMegaBytes = totalBytesDownloaded / (1024 * 1024);
+                                double downloadSpeedMegaBytesPerSeconds = downloadSpeed / (1024 * 1024);
 
 
                                 currentFile.UpdateInfo((int)percentage, downloadedMegaBytes, downloadSpeedMegaBytesPerSeconds, FileDownLoadStatus.Downloading);
                                 Observer.Instance.Broadcast(EventId.OnProcessDownloadProgress, currentFile);
-                                }
                             }
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Error downloading part [{start}-{end}]: " + ex.Message, ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error downloading part [{start}-{end}]: " + ex.Message, ex);
+            }
         }
 
         private void MergeFiles(List<string> tempFiles, string outputPath)
@@ -249,7 +250,7 @@ namespace Http
 
         public override void OnDispose()
         {
-            
+
         }
     }
 }

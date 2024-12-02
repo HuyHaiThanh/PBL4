@@ -38,8 +38,6 @@ namespace UdpFileTransfer
         private bool _shutdownRequested = false; // Yêu cầu dừng
         private bool _running = false; // Đang chạy
 
-        private AutoResetEvent _networkMessageEvent = new AutoResetEvent(false); // Quản lý chờ đợi các sự kiện mạng
-
         // Dữ liệu
         private Dictionary<UInt32, Block> _blocksReceived = new Dictionary<UInt32, Block>(); // Các khối dữ liệu đã nhận
         private Queue<UInt32> _blockRequestQueue = new Queue<UInt32>(); // Các yêu cầu khối dữ liệu
@@ -229,6 +227,7 @@ namespace UdpFileTransfer
                         if (isSend)
                         {
                             // Sử dụng Task để xử lý khối dữ liệu nhận được
+
                                 // Lấy khối dữ liệu từ gói tin
                                 SendPacket SEND = new SendPacket(nm.Packet); // Gói tin SEND
                                 Block block = SEND.Block; // Khối dữ liệu
@@ -297,7 +296,8 @@ namespace UdpFileTransfer
 
                 }
 
-                _networkMessageEvent.WaitOne(1); // Chờ tối đa 1ms
+                Thread.Sleep(1);
+
 
                 // Kiểm tra yêu cầu dừng
                 _running &= !_shutdownRequested;
@@ -351,11 +351,7 @@ namespace UdpFileTransfer
                 _packetQueue.Enqueue(nm);
             }
 
-            // Đặt sự kiện khi có thông điệp mạng
-            if (_packetQueue.Count > 0)
-            {
-                _networkMessageEvent.Set();
-            }
+
         }
 
         // Lưu các khối dữ liệu vào file

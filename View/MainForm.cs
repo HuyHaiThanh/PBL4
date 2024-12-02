@@ -30,7 +30,8 @@ namespace View
             {
                 string url = (string)obj;
                 SettingInfo settingInfo = Utilities.LoadFromJson();
-                Http.HttpFileDownloader downloader = new Http.HttpFileDownloader(url, settingInfo.pathSave, settingInfo.connectionLimit);
+                //Http.HttpClientDownloader downloader = new Http.HttpClientDownloader(url, settingInfo.pathSave, settingInfo.connectionLimit);
+                InternetFileDownload downloader = new InternetFileDownload(url, settingInfo.pathSave, settingInfo.connectionLimit);
                 DetailDownloadForm detailForm = new DetailDownloadForm(downloader);
                 detailForm.ShowDialog();
 
@@ -120,30 +121,35 @@ namespace View
         }
 
 
-        private void btnStartDowloadHttp_Click(object sender, EventArgs e)
-        {
-            SettingInfo settingInfo = Utilities.LoadFromJson();
-            string url = textBoxUrl.Text;
-            if (String.IsNullOrEmpty(url)) return;
-            Uri uriResult;
-            bool result = Uri.TryCreate(url, UriKind.Absolute, out uriResult)
-                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+        //private void btnStartDowloadHttp_Click(object sender, EventArgs e)
+        //{
+        //    SettingInfo settingInfo = Utilities.LoadFromJson();
+        //   // string url = textBoxUrl.Text;
+        //    if (String.IsNullOrEmpty(url)) return;
+        //    Uri uriResult;
+        //    bool result = Uri.TryCreate(url, UriKind.Absolute, out uriResult)
+        //        && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
 
-            if (!result)
-            {
-                MessageBox.Show("Please enter a valid url to start download!", "Invalid url", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+        //    if (!result)
+        //    {
+        //        MessageBox.Show("Please enter a valid url to start download!", "Invalid url", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        return;
+        //    }
 
-            Http.HttpFileDownloader downloader = new Http.HttpFileDownloader(url, settingInfo.pathSave, settingInfo.connectionLimit);
-            DetailDownloadForm detailForm = new DetailDownloadForm(downloader);
-            detailForm.ShowDialog();
-        }
+        //    Http.HttpClientDownloader downloader = new Http.HttpClientDownloader(url, settingInfo.pathSave, settingInfo.connectionLimit);
+        //    DetailDownloadForm detailForm = new DetailDownloadForm(downloader);
+        //    detailForm.ShowDialog();
+        //}
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Observer.Instance.Unregister(EventId.OnHasError, MainForm_OnHasError);
             Observer.Instance.Unregister(EventId.OnGetLinkByHttp, OnGetLinkHttp);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

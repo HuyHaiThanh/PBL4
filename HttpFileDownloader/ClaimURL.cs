@@ -15,11 +15,9 @@ namespace HttpFileDownloader
         public void ClaimExtension()
         {
             HttpListener listener = new HttpListener();
-            Console.WriteLine("sad");
-            listener.Prefixes.Add("http://localhost:5000/catch/"); // Địa chỉ lắng nghe
+            // Địa chỉ lắng nghe
 
-            Console.WriteLine("HTTP server is running on http://localhost:5000/catch");
-
+            listener.Prefixes.Add("http://localhost:5000/catch/");
             // Xử lý yêu cầu trong vòng lặp
             Task.Run(() =>
             {
@@ -27,7 +25,8 @@ namespace HttpFileDownloader
                 {
                     try
                     {
-                    listener.Start();
+
+                        listener.Start();
                     // Chờ yêu cầu từ extension
                     var context = listener.GetContext();
 
