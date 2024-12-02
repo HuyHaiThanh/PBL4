@@ -50,7 +50,7 @@
     <Compile Include="UdpFileSender.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="F:\dotnet22.11\PBL4\Core\Core.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{101b3f25-4ddb-4844-8abb-43b0b086dc40}</Project>
       <Name>Core</Name>
     </ProjectReference>

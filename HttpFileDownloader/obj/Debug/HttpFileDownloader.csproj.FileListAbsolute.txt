@@ -11,3 +11,16 @@ F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\Core.pdb
 F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\Core.exe.config
 F:\dotnet22.11\PBL4\HttpFileDownloader\bin\Debug\Newtonsoft.Json.xml
 F:\dotnet22.11\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.csproj.CopyComplete
+C:\Users\clone\Music\PBL4\HttpFileDownloader\bin\Debug\HttpFileDownloader.exe.config
+C:\Users\clone\Music\PBL4\HttpFileDownloader\bin\Debug\HttpFileDownloader.exe
+C:\Users\clone\Music\PBL4\HttpFileDownloader\bin\Debug\HttpFileDownloader.pdb
+C:\Users\clone\Music\PBL4\HttpFileDownloader\bin\Debug\Core.exe
+C:\Users\clone\Music\PBL4\HttpFileDownloader\bin\Debug\Newtonsoft.Json.dll
+C:\Users\clone\Music\PBL4\HttpFileDownloader\bin\Debug\Core.pdb
+C:\Users\clone\Music\PBL4\HttpFileDownloader\bin\Debug\Core.exe.config
+C:\Users\clone\Music\PBL4\HttpFileDownloader\bin\Debug\Newtonsoft.Json.xml
+C:\Users\clone\Music\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.csproj.AssemblyReference.cache
+C:\Users\clone\Music\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.csproj.CoreCompileInputs.cache
+C:\Users\clone\Music\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.csproj.CopyComplete
+C:\Users\clone\Music\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.exe
+C:\Users\clone\Music\PBL4\HttpFileDownloader\obj\Debug\HttpFileDownloader.pdb

@@ -11,3 +11,16 @@ F:\dotnet22.11\PBL4\TCPClient\obj\Debug\TCPClient.csproj.CoreCompileInputs.cache
 F:\dotnet22.11\PBL4\TCPClient\obj\Debug\TCPClient.csproj.CopyComplete
 F:\dotnet22.11\PBL4\TCPClient\obj\Debug\TCPClient.exe
 F:\dotnet22.11\PBL4\TCPClient\obj\Debug\TCPClient.pdb
+C:\Users\clone\Music\PBL4\TCPClient\bin\Debug\TCPClient.exe.config
+C:\Users\clone\Music\PBL4\TCPClient\bin\Debug\TCPClient.exe
+C:\Users\clone\Music\PBL4\TCPClient\bin\Debug\TCPClient.pdb
+C:\Users\clone\Music\PBL4\TCPClient\bin\Debug\Core.exe
+C:\Users\clone\Music\PBL4\TCPClient\bin\Debug\Newtonsoft.Json.dll
+C:\Users\clone\Music\PBL4\TCPClient\bin\Debug\Core.pdb
+C:\Users\clone\Music\PBL4\TCPClient\bin\Debug\Core.exe.config
+C:\Users\clone\Music\PBL4\TCPClient\bin\Debug\Newtonsoft.Json.xml
+C:\Users\clone\Music\PBL4\TCPClient\obj\Debug\TCPClient.csproj.AssemblyReference.cache
+C:\Users\clone\Music\PBL4\TCPClient\obj\Debug\TCPClient.csproj.CoreCompileInputs.cache
+C:\Users\clone\Music\PBL4\TCPClient\obj\Debug\TCPClient.csproj.CopyComplete
+C:\Users\clone\Music\PBL4\TCPClient\obj\Debug\TCPClient.exe
+C:\Users\clone\Music\PBL4\TCPClient\obj\Debug\TCPClient.pdb

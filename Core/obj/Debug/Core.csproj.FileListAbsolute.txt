@@ -8,3 +8,13 @@ F:\dotnet22.11\PBL4\Core\obj\Debug\Core.csproj.CoreCompileInputs.cache
 F:\dotnet22.11\PBL4\Core\obj\Debug\Core.csproj.CopyComplete
 F:\dotnet22.11\PBL4\Core\obj\Debug\Core.exe
 F:\dotnet22.11\PBL4\Core\obj\Debug\Core.pdb
+C:\Users\clone\Music\PBL4\Core\bin\Debug\Core.exe.config
+C:\Users\clone\Music\PBL4\Core\bin\Debug\Core.exe
+C:\Users\clone\Music\PBL4\Core\bin\Debug\Core.pdb
+C:\Users\clone\Music\PBL4\Core\bin\Debug\Newtonsoft.Json.dll
+C:\Users\clone\Music\PBL4\Core\bin\Debug\Newtonsoft.Json.xml
+C:\Users\clone\Music\PBL4\Core\obj\Debug\Core.csproj.AssemblyReference.cache
+C:\Users\clone\Music\PBL4\Core\obj\Debug\Core.csproj.CoreCompileInputs.cache
+C:\Users\clone\Music\PBL4\Core\obj\Debug\Core.csproj.CopyComplete
+C:\Users\clone\Music\PBL4\Core\obj\Debug\Core.exe
+C:\Users\clone\Music\PBL4\Core\obj\Debug\Core.pdb

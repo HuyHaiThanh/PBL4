@@ -54,7 +54,7 @@
       <Project>{588d2fce-a1b4-4c7e-9ea2-69ab4832a8e6}</Project>
       <Name>UdpFileTransfer</Name>
     </ProjectReference>
-    <ProjectReference Include="F:\dotnet22.11\PBL4\Core\Core.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{101b3f25-4ddb-4844-8abb-43b0b086dc40}</Project>
       <Name>Core</Name>
     </ProjectReference>
