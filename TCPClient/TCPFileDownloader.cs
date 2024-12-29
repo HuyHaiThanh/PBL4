@@ -10,7 +10,7 @@ using Core;
 
 namespace TCP
 {
-    public class TCPFileDownloader : BaseDowloader
+    public class TCPFileDownloader : BaseDownloader
     {
         private string ip;
         private int port;

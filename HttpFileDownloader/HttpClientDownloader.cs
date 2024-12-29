@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Http
 {
-    public class HttpClientDownloader : BaseDowloader
+    public class HttpClientDownloader : BaseDownloader
     {
         private readonly HttpClient client;
 

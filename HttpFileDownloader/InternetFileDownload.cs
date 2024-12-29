@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HttpFileDownloader
 {
-    public class InternetFileDownload : BaseDowloader
+    public class InternetFileDownload : BaseDownloader
     {
         private FileDetail currentFile;
 

@@ -2,7 +2,7 @@
 
 namespace Core
 {
-    public abstract class BaseDowloader
+    public abstract class BaseDownloader
     {
         protected bool isPaused;
         protected bool isCancelled;
